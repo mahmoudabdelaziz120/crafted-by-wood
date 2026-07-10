@@ -9,8 +9,50 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WardrobesRouteImport } from './routes/wardrobes'
+import { Route as OfficesRouteImport } from './routes/offices'
+import { Route as LibrariesRouteImport } from './routes/libraries'
+import { Route as KitchensRouteImport } from './routes/kitchens'
+import { Route as DoorsRouteImport } from './routes/doors'
+import { Route as CustomFurnitureRouteImport } from './routes/custom-furniture'
+import { Route as BedroomsRouteImport } from './routes/bedrooms'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WardrobesRoute = WardrobesRouteImport.update({
+  id: '/wardrobes',
+  path: '/wardrobes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfficesRoute = OfficesRouteImport.update({
+  id: '/offices',
+  path: '/offices',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LibrariesRoute = LibrariesRouteImport.update({
+  id: '/libraries',
+  path: '/libraries',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KitchensRoute = KitchensRouteImport.update({
+  id: '/kitchens',
+  path: '/kitchens',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DoorsRoute = DoorsRouteImport.update({
+  id: '/doors',
+  path: '/doors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomFurnitureRoute = CustomFurnitureRouteImport.update({
+  id: '/custom-furniture',
+  path: '/custom-furniture',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BedroomsRoute = BedroomsRouteImport.update({
+  id: '/bedrooms',
+  path: '/bedrooms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +61,130 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/bedrooms': typeof BedroomsRoute
+  '/custom-furniture': typeof CustomFurnitureRoute
+  '/doors': typeof DoorsRoute
+  '/kitchens': typeof KitchensRoute
+  '/libraries': typeof LibrariesRoute
+  '/offices': typeof OfficesRoute
+  '/wardrobes': typeof WardrobesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/bedrooms': typeof BedroomsRoute
+  '/custom-furniture': typeof CustomFurnitureRoute
+  '/doors': typeof DoorsRoute
+  '/kitchens': typeof KitchensRoute
+  '/libraries': typeof LibrariesRoute
+  '/offices': typeof OfficesRoute
+  '/wardrobes': typeof WardrobesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/bedrooms': typeof BedroomsRoute
+  '/custom-furniture': typeof CustomFurnitureRoute
+  '/doors': typeof DoorsRoute
+  '/kitchens': typeof KitchensRoute
+  '/libraries': typeof LibrariesRoute
+  '/offices': typeof OfficesRoute
+  '/wardrobes': typeof WardrobesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/bedrooms'
+    | '/custom-furniture'
+    | '/doors'
+    | '/kitchens'
+    | '/libraries'
+    | '/offices'
+    | '/wardrobes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/bedrooms'
+    | '/custom-furniture'
+    | '/doors'
+    | '/kitchens'
+    | '/libraries'
+    | '/offices'
+    | '/wardrobes'
+  id:
+    | '__root__'
+    | '/'
+    | '/bedrooms'
+    | '/custom-furniture'
+    | '/doors'
+    | '/kitchens'
+    | '/libraries'
+    | '/offices'
+    | '/wardrobes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BedroomsRoute: typeof BedroomsRoute
+  CustomFurnitureRoute: typeof CustomFurnitureRoute
+  DoorsRoute: typeof DoorsRoute
+  KitchensRoute: typeof KitchensRoute
+  LibrariesRoute: typeof LibrariesRoute
+  OfficesRoute: typeof OfficesRoute
+  WardrobesRoute: typeof WardrobesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wardrobes': {
+      id: '/wardrobes'
+      path: '/wardrobes'
+      fullPath: '/wardrobes'
+      preLoaderRoute: typeof WardrobesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/offices': {
+      id: '/offices'
+      path: '/offices'
+      fullPath: '/offices'
+      preLoaderRoute: typeof OfficesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/libraries': {
+      id: '/libraries'
+      path: '/libraries'
+      fullPath: '/libraries'
+      preLoaderRoute: typeof LibrariesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kitchens': {
+      id: '/kitchens'
+      path: '/kitchens'
+      fullPath: '/kitchens'
+      preLoaderRoute: typeof KitchensRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/doors': {
+      id: '/doors'
+      path: '/doors'
+      fullPath: '/doors'
+      preLoaderRoute: typeof DoorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/custom-furniture': {
+      id: '/custom-furniture'
+      path: '/custom-furniture'
+      fullPath: '/custom-furniture'
+      preLoaderRoute: typeof CustomFurnitureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bedrooms': {
+      id: '/bedrooms'
+      path: '/bedrooms'
+      fullPath: '/bedrooms'
+      preLoaderRoute: typeof BedroomsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +197,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BedroomsRoute: BedroomsRoute,
+  CustomFurnitureRoute: CustomFurnitureRoute,
+  DoorsRoute: DoorsRoute,
+  KitchensRoute: KitchensRoute,
+  LibrariesRoute: LibrariesRoute,
+  OfficesRoute: OfficesRoute,
+  WardrobesRoute: WardrobesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
