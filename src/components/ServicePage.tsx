@@ -17,15 +17,14 @@ export function ServicePage({ service }: { service: Service }) {
       {/* ============ HERO ============ */}
       <section className="relative flex min-h-[92vh] items-end overflow-hidden px-[6vw] pb-24 pt-32">
         <div className="absolute inset-0 -z-0">
-          <div
-            className="absolute inset-0 animate-hero-zoom"
-            style={{ background: service.gallery[0]?.gradient ?? "linear-gradient(135deg,#c9974f,#20140a)" }}
+          <img
+            src={service.heroImage}
+            alt={service.heroTitle}
+            className="absolute inset-0 h-full w-full animate-hero-zoom object-cover"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.14),transparent_60%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,10,6,0.4)_0%,rgba(15,10,6,0.15)_35%,rgba(15,10,6,0.95)_100%)]" />
-          {/* Ambient blobs */}
-          <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-gold/25 blur-[140px]" />
-          <div className="absolute bottom-1/3 left-1/4 h-96 w-96 rounded-full bg-gold-light/15 blur-[140px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,10,6,0.55)_0%,rgba(15,10,6,0.35)_35%,rgba(15,10,6,0.95)_100%)]" />
+          <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-gold/20 blur-[140px]" />
+          <div className="absolute bottom-1/3 left-1/4 h-96 w-96 rounded-full bg-gold-light/10 blur-[140px]" />
         </div>
 
         <div className="relative z-10 max-w-3xl animate-fade-up">
@@ -131,9 +130,13 @@ export function ServicePage({ service }: { service: Service }) {
           key={g.title}
           className="relative flex min-h-[80vh] items-center overflow-hidden px-[6vw] py-24"
         >
-          <div className="absolute inset-0 -z-0" style={{ background: g.gradient }} />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,7,4,0.85)_100%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,10,6,0.35)_0%,transparent_35%,rgba(15,10,6,0.85)_100%)]" />
+          <img
+            src={g.image}
+            alt={g.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover opacity-40"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,7,4,0.4)_0%,rgba(10,7,4,0.9)_100%)]" />
 
           <div className="relative z-10 mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-2 lg:items-center">
             <div className={i % 2 === 1 ? "lg:order-2" : ""}>
@@ -158,13 +161,13 @@ export function ServicePage({ service }: { service: Service }) {
             </div>
 
             <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-              <div
-                className="glass-strong aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.5)]"
-                style={{ background: g.gradient }}
-              >
-                <div className="flex h-full w-full items-center justify-center">
-                  <span className="text-[120px] opacity-40" aria-hidden>{service.icon}</span>
-                </div>
+              <div className="glass-strong aspect-[4/3] w-full overflow-hidden rounded-3xl shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+                <img
+                  src={g.image}
+                  alt={g.title}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
               </div>
             </div>
           </div>
