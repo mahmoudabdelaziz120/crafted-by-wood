@@ -1,7 +1,54 @@
+// Icons
+import iconHome from "@/assets/dock/icon-home.png";
+import iconKitchens from "@/assets/dock/icon-kitchens.png";
+import iconBedrooms from "@/assets/dock/icon-bedrooms.png";
+import iconWardrobes from "@/assets/dock/icon-wardrobes.png";
+import iconOffices from "@/assets/dock/icon-offices.png";
+import iconLibraries from "@/assets/dock/icon-libraries.png";
+import iconDoors from "@/assets/dock/icon-doors.png";
+import iconCustom from "@/assets/dock/icon-custom.png";
+import logoEtqan from "@/assets/dock/logo-etqan.png";
+
+// Heroes
+import heroKitchens from "@/assets/heroes/hero-kitchens.jpg";
+import heroBedrooms from "@/assets/heroes/hero-bedrooms.jpg";
+import heroWardrobes from "@/assets/heroes/hero-wardrobes.jpg";
+import heroOffices from "@/assets/heroes/hero-offices.jpg";
+import heroLibraries from "@/assets/heroes/hero-libraries.jpg";
+import heroDoors from "@/assets/heroes/hero-doors.jpg";
+import heroCustom from "@/assets/heroes/hero-custom.jpg";
+
+// Gallery
+import k1 from "@/assets/gallery/kitchens-1.jpg";
+import k2 from "@/assets/gallery/kitchens-2.jpg";
+import k3 from "@/assets/gallery/kitchens-3.jpg";
+import b1 from "@/assets/gallery/bedrooms-1.jpg";
+import b2 from "@/assets/gallery/bedrooms-2.jpg";
+import b3 from "@/assets/gallery/bedrooms-3.jpg";
+import w1 from "@/assets/gallery/wardrobes-1.jpg";
+import w2 from "@/assets/gallery/wardrobes-2.jpg";
+import w3 from "@/assets/gallery/wardrobes-3.jpg";
+import o1 from "@/assets/gallery/offices-1.jpg";
+import o2 from "@/assets/gallery/offices-2.jpg";
+import o3 from "@/assets/gallery/offices-3.jpg";
+import l1 from "@/assets/gallery/libraries-1.jpg";
+import l2 from "@/assets/gallery/libraries-2.jpg";
+import l3 from "@/assets/gallery/libraries-3.jpg";
+import d1 from "@/assets/gallery/doors-1.jpg";
+import d2 from "@/assets/gallery/doors-2.jpg";
+import d3 from "@/assets/gallery/doors-3.jpg";
+import c1 from "@/assets/gallery/custom-1.jpg";
+import c2 from "@/assets/gallery/custom-2.jpg";
+import c3 from "@/assets/gallery/custom-3.jpg";
+
+export const ETQAN_LOGO = logoEtqan;
+
 export type Service = {
   slug: string;
   path: "/kitchens" | "/bedrooms" | "/wardrobes" | "/offices" | "/libraries" | "/doors" | "/custom-furniture";
   icon: string;
+  iconImage: string;
+  heroImage: string;
   labelAr: string;
   labelEn: string;
   tagline: string;
@@ -10,7 +57,7 @@ export type Service = {
   intro: string;
   features: { icon: string; title: string; desc: string }[];
   materials: string[];
-  gallery: { title: string; desc: string; gradient: string }[];
+  gallery: { title: string; desc: string; image: string }[];
   faq: { q: string; a: string }[];
   seoTitle: string;
   seoDesc: string;
@@ -21,6 +68,8 @@ export const SERVICES: Service[] = [
     slug: "kitchens",
     path: "/kitchens",
     icon: "🪵",
+    iconImage: iconKitchens,
+    heroImage: heroKitchens,
     labelAr: "مطابخ",
     labelEn: "Kitchens",
     tagline: "قلب المنزل، بحرفية إتقان",
@@ -38,9 +87,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["MDF مضاد للماء", "كونتر إسباني", "قشرة خشب طبيعي", "أكريليك لامع", "زجاج معشق", "استانلس ستيل"],
     gallery: [
-      { title: "مطبخ مودرن أبيض", desc: "خطوط نظيفة، إضاءة مخفية، جزيرة وسطية.", gradient: "linear-gradient(135deg,#e8dcc4,#b8946a)" },
-      { title: "مطبخ نيو كلاسيك", desc: "تفاصيل محفورة، دهان لاكيه، مقابض ذهبية.", gradient: "linear-gradient(135deg,#8a6338,#3b2515)" },
-      { title: "مطبخ خشب طبيعي", desc: "دفء الخشب الطبيعي مع لمسات نحاسية.", gradient: "linear-gradient(135deg,#c9974f,#6b4423)" },
+      { title: "مطبخ مودرن أبيض", desc: "خطوط نظيفة، إضاءة مخفية، جزيرة وسطية.", image: k1 },
+      { title: "مطبخ نيو كلاسيك", desc: "تفاصيل محفورة، دهان لاكيه، مقابض ذهبية.", image: k2 },
+      { title: "مطبخ خشب طبيعي", desc: "دفء الخشب الطبيعي مع لمسات نحاسية.", image: k3 },
     ],
     faq: [
       { q: "كم يستغرق تنفيذ المطبخ؟", a: "عادة من 3 إلى 6 أسابيع حسب حجم المشروع ودرجة التخصيص." },
@@ -54,6 +103,8 @@ export const SERVICES: Service[] = [
     slug: "bedrooms",
     path: "/bedrooms",
     icon: "🛏",
+    iconImage: iconBedrooms,
+    heroImage: heroBedrooms,
     labelAr: "غرف نوم",
     labelEn: "Bedrooms",
     tagline: "راحة تشبهك، أناقة تدوم",
@@ -71,9 +122,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["MDF عالي الكثافة", "قشرة أوك", "قشرة والنت", "دهان دوكو مطفي", "أقمشة كابيتونيه"],
     gallery: [
-      { title: "غرفة نوم مودرن", desc: "خطوط منخفضة، ألوان محايدة، إضاءة دافئة.", gradient: "linear-gradient(135deg,#d4c3a3,#6b5439)" },
-      { title: "غرفة نوم كلاسيك", desc: "رأس سرير كابيتونيه، تفاصيل ذهبية.", gradient: "linear-gradient(135deg,#7a5638,#2a1b10)" },
-      { title: "غرفة نوم أطفال", desc: "تصاميم آمنة وممتعة بألوان هادئة.", gradient: "linear-gradient(135deg,#e6bd80,#a37542)" },
+      { title: "غرفة نوم مودرن", desc: "خطوط منخفضة، ألوان محايدة، إضاءة دافئة.", image: b1 },
+      { title: "غرفة نوم كلاسيك", desc: "رأس سرير كابيتونيه، تفاصيل ذهبية.", image: b2 },
+      { title: "غرفة نوم أطفال", desc: "تصاميم آمنة وممتعة بألوان هادئة.", image: b3 },
     ],
     faq: [
       { q: "هل يمكن تصميم غرفة نوم كاملة؟", a: "نعم، نصمم وننفذ الغرفة كاملة بتناغم بصري كامل." },
@@ -86,6 +137,8 @@ export const SERVICES: Service[] = [
     slug: "wardrobes",
     path: "/wardrobes",
     icon: "🚪",
+    iconImage: iconWardrobes,
+    heroImage: heroWardrobes,
     labelAr: "دواليب",
     labelEn: "Wardrobes",
     tagline: "تنظيم يليق بأناقتك",
@@ -103,9 +156,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["MDF عالي الجودة", "أكريليك لامع", "قشرة خشب", "زجاج مضبب", "بروفيلات ألومنيوم"],
     gallery: [
-      { title: "دولاب سحّاب مودرن", desc: "أبواب زجاجية مع بروفيلات ألومنيوم.", gradient: "linear-gradient(135deg,#c9974f,#5a3d24)" },
-      { title: "دريسنج روم كامل", desc: "غرفة ملابس متكاملة بجزيرة وسطية.", gradient: "linear-gradient(135deg,#a37542,#3b2515)" },
-      { title: "دولاب كلاسيك", desc: "تفاصيل محفورة ومقابض معدنية.", gradient: "linear-gradient(135deg,#8a6338,#20140a)" },
+      { title: "دولاب سحّاب مودرن", desc: "أبواب زجاجية مع بروفيلات ألومنيوم.", image: w1 },
+      { title: "دريسنج روم كامل", desc: "غرفة ملابس متكاملة بجزيرة وسطية.", image: w2 },
+      { title: "دولاب كلاسيك", desc: "تفاصيل محفورة ومقابض معدنية.", image: w3 },
     ],
     faq: [
       { q: "هل تنفذون دريسنج روم؟", a: "نعم، من أبسط دولاب حتى غرفة ملابس كاملة." },
@@ -117,6 +170,8 @@ export const SERVICES: Service[] = [
     slug: "offices",
     path: "/offices",
     icon: "🪑",
+    iconImage: iconOffices,
+    heroImage: heroOffices,
     labelAr: "مكاتب",
     labelEn: "Offices",
     tagline: "بيئة عمل تلهم الإبداع",
@@ -133,9 +188,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["قشرة والنت", "قشرة أوك", "MDF لاكيه", "زجاج تمبرد", "جلد طبيعي"],
     gallery: [
-      { title: "مكتب تنفيذي فاخر", desc: "قشرة والنت مع تفاصيل جلدية.", gradient: "linear-gradient(135deg,#5a3d24,#20140a)" },
-      { title: "مكتب منزلي مودرن", desc: "حل عملي لمساحة العمل من المنزل.", gradient: "linear-gradient(135deg,#a37542,#3b2515)" },
-      { title: "قاعة اجتماعات", desc: "طاولة اجتماعات كبيرة بتشطيب فاخر.", gradient: "linear-gradient(135deg,#8a6338,#2a1b10)" },
+      { title: "مكتب تنفيذي فاخر", desc: "قشرة والنت مع تفاصيل جلدية.", image: o1 },
+      { title: "مكتب منزلي مودرن", desc: "حل عملي لمساحة العمل من المنزل.", image: o2 },
+      { title: "قاعة اجتماعات", desc: "طاولة اجتماعات كبيرة بتشطيب فاخر.", image: o3 },
     ],
     faq: [
       { q: "هل تنفذون مقرات شركات كاملة؟", a: "نعم، لدينا خبرة في تجهيز مقرات شركات ومكاتب محاماة وعيادات." },
@@ -147,6 +202,8 @@ export const SERVICES: Service[] = [
     slug: "libraries",
     path: "/libraries",
     icon: "📚",
+    iconImage: iconLibraries,
+    heroImage: heroLibraries,
     labelAr: "مكتبات",
     labelEn: "Libraries",
     tagline: "للكتب مكانها اللائق",
@@ -162,9 +219,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["MDF عالي الجودة", "قشرة خشب طبيعي", "زجاج", "معدن مطلي"],
     gallery: [
-      { title: "مكتبة حائط كامل", desc: "من الأرض للسقف مع سلم متحرك.", gradient: "linear-gradient(135deg,#6b4423,#20140a)" },
-      { title: "مكتبة مودرن مفتوحة", desc: "أرفف معلقة بتوزيع فني.", gradient: "linear-gradient(135deg,#c9974f,#5a3d24)" },
-      { title: "مكتبة كلاسيكية", desc: "بتفاصيل محفورة وأبواب زجاجية.", gradient: "linear-gradient(135deg,#8a6338,#2a1b10)" },
+      { title: "مكتبة حائط كامل", desc: "من الأرض للسقف مع سلم متحرك.", image: l1 },
+      { title: "مكتبة مودرن مفتوحة", desc: "أرفف معلقة بتوزيع فني.", image: l2 },
+      { title: "مكتبة كلاسيكية", desc: "بتفاصيل محفورة وأبواب زجاجية.", image: l3 },
     ],
     faq: [
       { q: "هل يمكن تصميم مكتبة تناسب سقفاً عالياً؟", a: "نعم، ننفذ مكتبات ارتفاع كامل مع سلم إن لزم." },
@@ -176,6 +233,8 @@ export const SERVICES: Service[] = [
     slug: "doors",
     path: "/doors",
     icon: "🚪",
+    iconImage: iconDoors,
+    heroImage: heroDoors,
     labelAr: "أبواب",
     labelEn: "Doors",
     tagline: "أول انطباع يبقى",
@@ -191,9 +250,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["زان مصمت", "HDF مضغوط", "قشرة أوك", "قشرة والنت"],
     gallery: [
-      { title: "باب مدخل رئيسي", desc: "خشب زان مصمت مع تفاصيل نحاسية.", gradient: "linear-gradient(135deg,#5a3d24,#20140a)" },
-      { title: "أبواب داخلية مودرن", desc: "خطوط نظيفة وتفاصيل بسيطة.", gradient: "linear-gradient(135deg,#a37542,#3b2515)" },
-      { title: "أبواب كلاسيك محفورة", desc: "نقوش يدوية على الطراز الفرنسي.", gradient: "linear-gradient(135deg,#8a6338,#2a1b10)" },
+      { title: "باب مدخل رئيسي", desc: "خشب زان مصمت مع تفاصيل نحاسية.", image: d1 },
+      { title: "أبواب داخلية مودرن", desc: "خطوط نظيفة وتفاصيل بسيطة.", image: d2 },
+      { title: "أبواب كلاسيك محفورة", desc: "نقوش يدوية على الطراز الفرنسي.", image: d3 },
     ],
     faq: [
       { q: "ما الفرق بين الزان والHDF؟", a: "الزان مصمت وأثقل وأكثر متانة، بينما HDF أخف وأقل تكلفة." },
@@ -205,6 +264,8 @@ export const SERVICES: Service[] = [
     slug: "custom-furniture",
     path: "/custom-furniture",
     icon: "✨",
+    iconImage: iconCustom,
+    heroImage: heroCustom,
     labelAr: "أثاث حسب الطلب",
     labelEn: "Custom Furniture",
     tagline: "قطعة فريدة تحمل بصمتك",
@@ -220,9 +281,9 @@ export const SERVICES: Service[] = [
     ],
     materials: ["كل أنواع الأخشاب", "معادن", "زجاج", "أقمشة فاخرة", "جلد طبيعي"],
     gallery: [
-      { title: "وحدة تلفزيون حائطية", desc: "تصميم مخصص يمتد على الحائط بالكامل.", gradient: "linear-gradient(135deg,#c9974f,#5a3d24)" },
-      { title: "طاولة طعام فريدة", desc: "قطعة محورية لغرفة الطعام.", gradient: "linear-gradient(135deg,#a37542,#3b2515)" },
-      { title: "بار منزلي", desc: "بار داخلي بإضاءة ورفوف زجاجية.", gradient: "linear-gradient(135deg,#8a6338,#2a1b10)" },
+      { title: "وحدة تلفزيون حائطية", desc: "تصميم مخصص يمتد على الحائط بالكامل.", image: c1 },
+      { title: "طاولة طعام فريدة", desc: "قطعة محورية لغرفة الطعام.", image: c2 },
+      { title: "بار منزلي", desc: "بار داخلي بإضاءة ورفوف زجاجية.", image: c3 },
     ],
     faq: [
       { q: "ما الحد الأدنى للطلب؟", a: "لا يوجد حد أدنى — ننفذ من قطعة واحدة إلى أثاث منزل كامل." },
@@ -231,5 +292,7 @@ export const SERVICES: Service[] = [
     seoDesc: "تصميم وتنفيذ أي قطعة أثاث بمواصفاتك الدقيقة، بخامات فاخرة وحرفية عالية.",
   },
 ];
+
+export const HOME_ICON = iconHome;
 
 export const getService = (slug: string) => SERVICES.find((s) => s.slug === slug);
