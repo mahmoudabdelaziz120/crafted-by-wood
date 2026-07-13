@@ -16,7 +16,15 @@ import { Route as KitchensRouteImport } from './routes/kitchens'
 import { Route as DoorsRouteImport } from './routes/doors'
 import { Route as CustomFurnitureRouteImport } from './routes/custom-furniture'
 import { Route as BedroomsRouteImport } from './routes/bedrooms'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ApiPublicBootstrapAdminRouteImport } from './routes/api/public/bootstrap-admin'
+import { Route as AuthenticatedAdminServicesRouteImport } from './routes/_authenticated/admin.services'
+import { Route as AuthenticatedAdminMessagesRouteImport } from './routes/_authenticated/admin.messages'
+import { Route as AuthenticatedAdminHeroRouteImport } from './routes/_authenticated/admin.hero'
+import { Route as AuthenticatedAdminGalleryRouteImport } from './routes/_authenticated/admin.gallery'
 
 const WardrobesRoute = WardrobesRouteImport.update({
   id: '/wardrobes',
@@ -53,14 +61,57 @@ const BedroomsRoute = BedroomsRouteImport.update({
   path: '/bedrooms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiPublicBootstrapAdminRoute = ApiPublicBootstrapAdminRouteImport.update({
+  id: '/api/public/bootstrap-admin',
+  path: '/api/public/bootstrap-admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminServicesRoute =
+  AuthenticatedAdminServicesRouteImport.update({
+    id: '/admin/services',
+    path: '/admin/services',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminMessagesRoute =
+  AuthenticatedAdminMessagesRouteImport.update({
+    id: '/admin/messages',
+    path: '/admin/messages',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminHeroRoute = AuthenticatedAdminHeroRouteImport.update({
+  id: '/admin/hero',
+  path: '/admin/hero',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminGalleryRoute =
+  AuthenticatedAdminGalleryRouteImport.update({
+    id: '/admin/gallery',
+    path: '/admin/gallery',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bedrooms': typeof BedroomsRoute
   '/custom-furniture': typeof CustomFurnitureRoute
   '/doors': typeof DoorsRoute
@@ -68,9 +119,16 @@ export interface FileRoutesByFullPath {
   '/libraries': typeof LibrariesRoute
   '/offices': typeof OfficesRoute
   '/wardrobes': typeof WardrobesRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/bootstrap-admin': typeof ApiPublicBootstrapAdminRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/bedrooms': typeof BedroomsRoute
   '/custom-furniture': typeof CustomFurnitureRoute
   '/doors': typeof DoorsRoute
@@ -78,10 +136,18 @@ export interface FileRoutesByTo {
   '/libraries': typeof LibrariesRoute
   '/offices': typeof OfficesRoute
   '/wardrobes': typeof WardrobesRoute
+  '/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/bootstrap-admin': typeof ApiPublicBootstrapAdminRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/bedrooms': typeof BedroomsRoute
   '/custom-furniture': typeof CustomFurnitureRoute
   '/doors': typeof DoorsRoute
@@ -89,11 +155,18 @@ export interface FileRoutesById {
   '/libraries': typeof LibrariesRoute
   '/offices': typeof OfficesRoute
   '/wardrobes': typeof WardrobesRoute
+  '/_authenticated/admin/gallery': typeof AuthenticatedAdminGalleryRoute
+  '/_authenticated/admin/hero': typeof AuthenticatedAdminHeroRoute
+  '/_authenticated/admin/messages': typeof AuthenticatedAdminMessagesRoute
+  '/_authenticated/admin/services': typeof AuthenticatedAdminServicesRoute
+  '/api/public/bootstrap-admin': typeof ApiPublicBootstrapAdminRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/bedrooms'
     | '/custom-furniture'
     | '/doors'
@@ -101,9 +174,16 @@ export interface FileRouteTypes {
     | '/libraries'
     | '/offices'
     | '/wardrobes'
+    | '/admin/gallery'
+    | '/admin/hero'
+    | '/admin/messages'
+    | '/admin/services'
+    | '/api/public/bootstrap-admin'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/bedrooms'
     | '/custom-furniture'
     | '/doors'
@@ -111,9 +191,17 @@ export interface FileRouteTypes {
     | '/libraries'
     | '/offices'
     | '/wardrobes'
+    | '/admin/gallery'
+    | '/admin/hero'
+    | '/admin/messages'
+    | '/admin/services'
+    | '/api/public/bootstrap-admin'
+    | '/admin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/bedrooms'
     | '/custom-furniture'
     | '/doors'
@@ -121,10 +209,18 @@ export interface FileRouteTypes {
     | '/libraries'
     | '/offices'
     | '/wardrobes'
+    | '/_authenticated/admin/gallery'
+    | '/_authenticated/admin/hero'
+    | '/_authenticated/admin/messages'
+    | '/_authenticated/admin/services'
+    | '/api/public/bootstrap-admin'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   BedroomsRoute: typeof BedroomsRoute
   CustomFurnitureRoute: typeof CustomFurnitureRoute
   DoorsRoute: typeof DoorsRoute
@@ -132,6 +228,7 @@ export interface RootRouteChildren {
   LibrariesRoute: typeof LibrariesRoute
   OfficesRoute: typeof OfficesRoute
   WardrobesRoute: typeof WardrobesRoute
+  ApiPublicBootstrapAdminRoute: typeof ApiPublicBootstrapAdminRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -185,6 +282,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BedroomsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -192,11 +303,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/bootstrap-admin': {
+      id: '/api/public/bootstrap-admin'
+      path: '/api/public/bootstrap-admin'
+      fullPath: '/api/public/bootstrap-admin'
+      preLoaderRoute: typeof ApiPublicBootstrapAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/services': {
+      id: '/_authenticated/admin/services'
+      path: '/admin/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AuthenticatedAdminServicesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/messages': {
+      id: '/_authenticated/admin/messages'
+      path: '/admin/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AuthenticatedAdminMessagesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/hero': {
+      id: '/_authenticated/admin/hero'
+      path: '/admin/hero'
+      fullPath: '/admin/hero'
+      preLoaderRoute: typeof AuthenticatedAdminHeroRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/gallery': {
+      id: '/_authenticated/admin/gallery'
+      path: '/admin/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AuthenticatedAdminGalleryRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminGalleryRoute: typeof AuthenticatedAdminGalleryRoute
+  AuthenticatedAdminHeroRoute: typeof AuthenticatedAdminHeroRoute
+  AuthenticatedAdminMessagesRoute: typeof AuthenticatedAdminMessagesRoute
+  AuthenticatedAdminServicesRoute: typeof AuthenticatedAdminServicesRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminGalleryRoute: AuthenticatedAdminGalleryRoute,
+  AuthenticatedAdminHeroRoute: AuthenticatedAdminHeroRoute,
+  AuthenticatedAdminMessagesRoute: AuthenticatedAdminMessagesRoute,
+  AuthenticatedAdminServicesRoute: AuthenticatedAdminServicesRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   BedroomsRoute: BedroomsRoute,
   CustomFurnitureRoute: CustomFurnitureRoute,
   DoorsRoute: DoorsRoute,
@@ -204,6 +378,7 @@ const rootRouteChildren: RootRouteChildren = {
   LibrariesRoute: LibrariesRoute,
   OfficesRoute: OfficesRoute,
   WardrobesRoute: WardrobesRoute,
+  ApiPublicBootstrapAdminRoute: ApiPublicBootstrapAdminRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
