@@ -486,11 +486,12 @@ function ConsultationSection() {
 
             <button
               type="submit"
-              className="mt-8 flex w-full items-center justify-center gap-3 rounded-2xl py-5 text-lg font-bold text-[#20140a] shadow-[0_16px_36px_rgba(201,151,79,0.35)] transition-transform hover:-translate-y-1"
+              disabled={submitting}
+              className="mt-8 flex w-full items-center justify-center gap-3 rounded-2xl py-5 text-lg font-bold text-[#20140a] shadow-[0_16px_36px_rgba(201,151,79,0.35)] transition-transform hover:-translate-y-1 disabled:opacity-60"
               style={{ background: "linear-gradient(135deg, var(--gold-light), var(--gold))" }}
             >
               <WhatsAppIcon className="h-6 w-6" />
-              احصل على عرض سعر عبر واتساب
+              {submitting ? "جاري الإرسال..." : "احصل على عرض سعر عبر واتساب"}
             </button>
 
             <p className="mt-4 text-center text-xs text-cream-dimmer">
