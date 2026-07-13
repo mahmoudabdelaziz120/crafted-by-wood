@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import heroImage from "@/assets/hero-kitchen.jpg";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
+import { submitContact } from "@/lib/site.functions";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -13,9 +16,6 @@ export const Route = createFileRoute("/")({
     ],
   }),
 });
-
-const PHONE = "201064766650"; // WhatsApp intl format
-const PHONE_DISPLAY = "+20 106 476 6650";
 
 const PROJECT_TYPES = ["مطبخ", "غرفة نوم", "دولاب", "غرفة أطفال", "مكتب", "مكتبة", "باب", "أثاث حسب الطلب"];
 const STYLES = ["مودرن", "نيو كلاسيك", "كلاسيك", "مينيمال", "لا أعرف — أحتاج استشارة"];
@@ -180,27 +180,28 @@ function Hero() {
 
 /* ============================ STATS ============================ */
 function StatsBar() {
+  const s = useSiteSettings();
   const stats = [
-    { icon: "🛋", num: "+350", ar: "مشروع مكتمل", en: "Projects Completed" },
-    { icon: "🏅", num: "+12", ar: "سنوات من الخبرة", en: "Years of Experience" },
-    { icon: "⏱", num: "100%", ar: "التزام بالمواعيد", en: "On-Time Delivery" },
-    { icon: "🪵", num: "100%", ar: "أخشاب طبيعية", en: "Natural Wood" },
+    { icon: "🛋", num: s.stat_projects, ar: "مشروع مكتمل", en: "Projects Completed" },
+    { icon: "🏅", num: s.stat_years, ar: "سنوات من الخبرة", en: "Years of Experience" },
+    { icon: "⏱", num: s.stat_ontime, ar: "التزام بالمواعيد", en: "On-Time Delivery" },
+    { icon: "🪵", num: s.stat_wood, ar: "أخشاب طبيعية", en: "Natural Wood" },
   ];
   return (
     <div className="absolute inset-x-[6vw] bottom-8 z-10">
       <div className="glass-strong grid grid-cols-2 gap-6 rounded-3xl px-6 py-6 shadow-[0_20px_50px_rgba(0,0,0,0.4)] md:grid-cols-4 md:px-10 md:py-7">
-        {stats.map((s, i) => (
+        {stats.map((st, i) => (
           <div key={i} className="flex items-center gap-4">
             <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-xl text-gold-light">
-              {s.icon}
+              {st.icon}
             </div>
             <div className="min-w-0">
               <div className="text-2xl font-bold text-cream md:text-[28px]" style={{ fontFamily: "Poppins, sans-serif" }}>
-                {s.num}
+                {st.num}
               </div>
-              <div className="truncate text-[13px] text-cream-dim">{s.ar}</div>
+              <div className="truncate text-[13px] text-cream-dim">{st.ar}</div>
               <div className="truncate text-[10px] tracking-wide text-cream-dimmer" style={{ fontFamily: "Poppins, sans-serif" }}>
-                {s.en}
+                {st.en}
               </div>
             </div>
           </div>
@@ -253,7 +254,10 @@ const INITIAL: FormState = {
 };
 
 function ConsultationSection() {
+  const settings = useSiteSettings();
+  const submitFn = useServerFn(submitContact);
   const [form, setForm] = useState<FormState>(INITIAL);
+  const [submitting, setSubmitting] = useState(false);
 
   const toggleType = (t: string) =>
     setForm((f) => ({
@@ -263,8 +267,29 @@ function ConsultationSection() {
         : [...f.projectTypes, t],
     }));
 
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    // 1) Save to database (fire and continue; don't block WhatsApp if it fails)
+    try {
+      await submitFn({
+        data: {
+          name: form.name,
+          phone: form.phone,
+          city: form.city || null,
+          projectTypes: form.projectTypes,
+          style: form.style || null,
+          budget: form.budget || null,
+          wood: form.wood || null,
+          description: form.description || null,
+        },
+      });
+    } catch (err) {
+      console.error("Failed to save contact message:", err);
+    }
+    setSubmitting(false);
+
+    // 2) Open WhatsApp with pre-filled message
     const msg =
       `السلام عليكم،\n` +
       `لدي طلب جديد من خلال الموقع.\n` +
@@ -279,7 +304,7 @@ function ConsultationSection() {
       `💬 وصف المشروع\n${form.description || "—"}\n\n` +
       `━━━━━━━━━━━━━━\n` +
       `تم إرسال الطلب من الموقع الإلكتروني.`;
-    const url = `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`;
+    const url = `https://wa.me/${settings.whatsapp_phone}?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
   };
 
@@ -340,11 +365,11 @@ function ConsultationSection() {
                   DIRECT LINE
                 </div>
                 <a
-                  href={`tel:+${PHONE}`}
+                  href={`tel:+${settings.whatsapp_phone}`}
                   className="mt-1 block text-2xl font-bold text-gold-light hover:text-gold"
                   style={{ fontFamily: "Poppins, sans-serif", direction: "ltr" }}
                 >
-                  {PHONE_DISPLAY}
+                  {settings.whatsapp_display}
                 </a>
                 <div className="mt-1 text-xs text-cream-dim">اتصال مباشر أو واتساب</div>
               </div>
@@ -501,6 +526,7 @@ function SectionLabel({ icon, title }: { icon: string; title: string }) {
 
 /* ============================ FOOTER ============================ */
 function Footer() {
+  const s = useSiteSettings();
   return (
     <footer className="border-t border-white/5 bg-[#0f0a06] px-[6vw] py-14">
       <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-3">
@@ -528,10 +554,10 @@ function Footer() {
           <div className="mb-4 text-sm font-bold text-cream">تواصل</div>
           <ul className="space-y-2 text-sm text-cream-dim">
             <li>
-              <a href={`tel:+${PHONE}`} className="hover:text-gold-light" dir="ltr">{PHONE_DISPLAY}</a>
+              <a href={`tel:+${s.whatsapp_phone}`} className="hover:text-gold-light" dir="ltr">{s.whatsapp_display}</a>
             </li>
             <li>
-              <a href={`https://wa.me/${PHONE}`} target="_blank" rel="noreferrer" className="hover:text-gold-light">
+              <a href={`https://wa.me/${s.whatsapp_phone}`} target="_blank" rel="noreferrer" className="hover:text-gold-light">
                 واتساب مباشر
               </a>
             </li>
@@ -547,9 +573,10 @@ function Footer() {
 
 /* ============================ WHATSAPP FLOAT ============================ */
 function WhatsAppFloat() {
+  const s = useSiteSettings();
   return (
     <a
-      href={`https://wa.me/${PHONE}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن خدمات إتقان للنجارة.")}`}
+      href={`https://wa.me/${s.whatsapp_phone}?text=${encodeURIComponent("السلام عليكم، أود الاستفسار عن خدمات إتقان للنجارة.")}`}
       target="_blank"
       rel="noreferrer"
       className="fixed bottom-6 left-6 z-50 flex flex-col items-center gap-2 text-center"
